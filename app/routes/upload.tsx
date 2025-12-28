@@ -12,8 +12,15 @@ import { generateUUID } from "~/lib/utils";
 const prepareInstructions = (jobTitle: string, jobDescription: string) => {
     return `Analyze this resume for the position of ${jobTitle}. 
     Job Description: ${jobDescription}. 
-    Provide feedback in JSON format including a score (0-100), a list of missing keywords, and improvement tips.
-    IMPORTANT: Return ONLY the JSON object. Do not include any markdown backticks like \`\`\`json, no introductions, and no conclusions.`;
+    Provide feedback in JSON format with the following keys:
+    - overallScore: (0-100)
+    - toneStyleScore: (0-100)
+    - contentScore: (0-100)
+    - structureScore: (0-100)
+    - skillsScore: (0-100)
+    - improvementTips: (array of strings)
+    - missingKeywords: (array of strings)
+    IMPORTANT: Return ONLY the JSON object.`;
 };
 
 const Upload = () => {
@@ -100,6 +107,7 @@ const Upload = () => {
 
             // ADD THIS LINE BELOW (Line 104)
             console.log("Analysis Result Object:", analysisData);
+            navigate(`/resume/${uuid}`);
 
             // 6. Save results to Puter Key-Value Store
             await kv.set(`resume:${uuid}`, JSON.stringify(analysisData));

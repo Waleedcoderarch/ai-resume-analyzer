@@ -27,7 +27,7 @@ export default function Home() {
     }, [auth.isAuthenticated, navigate]);
 
     return (
-        <main className="bg-[url('/images/bg-main.svg')] bg-cover min-h-screen">
+        <main className="bg-[url('/bg-main.svg')] bg-cover min-h-screen">
             <Navbar />
 
             <section className="main-section">
